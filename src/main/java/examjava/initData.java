@@ -1,10 +1,9 @@
-package org.example.javaexam;
+package examjava;
 
-import org.example.javaexam.candyco.CandyCoService;
-import org.example.javaexam.customer.CustomerService;
-import org.example.javaexam.order.OrderService;
-import org.example.javaexam.product.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import examjava.candyco.CandyCoService;
+import examjava.customer.CustomerService;
+import examjava.order.OrderService;
+import examjava.product.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

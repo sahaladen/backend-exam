@@ -1,8 +1,8 @@
-package org.example.javaexam.customer;
+package examjava.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<Customer,Long> {
+public interface ProductRepo extends JpaRepository<Product,Long> {
 }

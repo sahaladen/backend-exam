@@ -1,4 +1,4 @@
-package org.example.javaexam.order;
+package examjava.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package org.example.javaexam.product;
+package examjava.product;
 
 public enum Status {
     available,

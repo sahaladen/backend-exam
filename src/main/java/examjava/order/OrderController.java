@@ -1,9 +1,9 @@
-package org.example.javaexam.customer;
+package examjava.order;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/customer")
-public class CustomerController {
+@RequestMapping("/api/order")
+public class OrderController {
 }

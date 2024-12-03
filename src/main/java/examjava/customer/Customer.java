@@ -1,4 +1,4 @@
-package org.example.javaexam.customer;
+package examjava.customer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package org.example.javaexam.customer;
+package examjava.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
