@@ -1,7 +1,8 @@
 package org.example.javaexam.customer;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepo {
+public interface CustomerRepo extends JpaRepository<Customer,Long> {
 }
