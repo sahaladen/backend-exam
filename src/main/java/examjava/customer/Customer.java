@@ -1,7 +1,7 @@
 package examjava.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import examjava.customerAddress.CustomerArddess;
+import examjava.customerAddress.CustomerAddress;
 import examjava.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class Customer {
             joinColumns = @JoinColumn(name = "address_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
     @JsonIgnoreProperties("customer")
-    private List<CustomerArddess> addresses;
+    private List<CustomerAddress> addresses;
 
 
 }
