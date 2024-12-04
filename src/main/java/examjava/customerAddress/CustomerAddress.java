@@ -23,4 +23,7 @@ public class CustomerAddress {
     @ManyToMany(mappedBy = "customer_address")
     private List<Customer> customers;
 
+    public CustomerAddress(String address, List<Customer> customers) {
+        this.address = address;
+    }
 }

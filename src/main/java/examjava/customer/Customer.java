@@ -38,4 +38,11 @@ public class Customer {
     private List<CustomerAddress> addresses;
 
 
+    public Customer(String firstName, String lastName, String phoneNumber, String email, List<CustomerAddress> addresses) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.addresses = addresses;
+    }
 }

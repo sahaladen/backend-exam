@@ -14,7 +14,7 @@ public class OrderService {
         this.orderRepo = orderRepo;
     }
 
-    public List<Order> getOrder() {
+    public List<Order> getOrders() {
         return orderRepo.findAll();
     }
 
