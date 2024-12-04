@@ -1,8 +1,8 @@
 create table if not exists customer(
     customer_id bigint primary key,
-    customer_firstname varchar(100),
-    customer_lastname varchar(100),
-    phone_number varchar (20),
+    first_name varchar(100),
+    last_name varchar(100),
+    phone_number varchar(20),
     email varchar(100)
 );
 

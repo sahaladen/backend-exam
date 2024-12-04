@@ -26,10 +26,6 @@ public class OrderService {
         return orderRepo.save(order);
     }
 
-    public void deleteOrder(){
-        orderRepo.deleteAll();
-    }
-
     public void deleteOrderById(long id){
         orderRepo.deleteById(id);
     }

@@ -1,7 +1,6 @@
 package examjava.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,18 +12,14 @@ import lombok.Setter;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "product_gen")
+    @SequenceGenerator(name = "product_gen", sequenceName = "product_sql", allocationSize = 1)
     private Long productId;
     private String productName;
-    private String productDescription;
-    private int productPrice;
-    private int productQuantity;
-    private Status status;
+    private String description;
+    private int price;
+    private ProductStatus status;
+    private int stock;
 
-    public Product(String productName, String productDescription, int productPrice, int productQuantity, Status status) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.status = status;
-    }
+
 }
