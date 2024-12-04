@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrderes(){
+    public ResponseEntity<List<Order>> getOrders(){
         return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
     }
 

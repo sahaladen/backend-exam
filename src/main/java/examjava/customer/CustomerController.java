@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getCustomeres(){
+    public ResponseEntity<List<Customer>> getCustomers(){
         return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
     }
 
