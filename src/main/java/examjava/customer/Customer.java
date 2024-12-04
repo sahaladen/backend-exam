@@ -2,7 +2,7 @@ package examjava.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import examjava.customerAddress.CustomerAddress;
-import examjava.order.Order;
+import examjava.order.CustomerOrder;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "customer_gen")
-    @SequenceGenerator(name = "customer_gen", sequenceName = "customer_seq", allocationSize = 1)
+    @SequenceGenerator(name = "customer_gen", sequenceName = "customer_sql", allocationSize = 1)
     private long customerId;
     private String firstName;
     private String lastName;
@@ -27,14 +27,14 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
-    private List<Order> orders;
+    private List<CustomerOrder> orders;
 
     @ManyToMany
     @JoinTable(
             name = "customer_address_customer",
             joinColumns = @JoinColumn(name = "address_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
-    @JsonIgnoreProperties("customer")
+    @JsonIgnoreProperties("customers")
     private List<CustomerAddress> addresses;
 
 

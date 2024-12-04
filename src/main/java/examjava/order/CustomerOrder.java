@@ -14,19 +14,19 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Order {
+public class CustomerOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "order_gen")
-    @SequenceGenerator(name = "order_gen", sequenceName = "order_sql", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "customer_order_gen")
+    @SequenceGenerator(name = "customer_order_gen", sequenceName = "customer_order_sql", allocationSize = 1)
     private long orderId;
     private int shippingCharge;
     private int totalPrice;
-    private OrderStatus status;
+    private OrderStatus shippingStatus;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @JsonIgnoreProperties("order")
+    @JsonIgnoreProperties("orders")
     private Customer customer;
 
     @ManyToMany
@@ -34,14 +34,14 @@ public class Order {
             name = "order_product",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id"))
-    @JsonIgnoreProperties("order")
+    @JsonIgnoreProperties("orders")
     private List<Product> products;
 
 
-    public Order(int shippingCharge, int totalPrice, OrderStatus status, Customer customer, List<Product> products) {
+    public CustomerOrder(int shippingCharge, int totalPrice, OrderStatus status, Customer customer, List<Product> products) {
         this.shippingCharge = shippingCharge;
         this.totalPrice = totalPrice;
-        this.status = status;
+        this.shippingStatus = status;
         this.customer = customer;
         this.products = products;
     }

@@ -1,5 +1,6 @@
 package examjava.customerAddress;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import examjava.customer.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,10 +18,11 @@ public class CustomerAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "customer_address_gen")
     @SequenceGenerator(name = "customer_address_gen", sequenceName = "customer_address_sql", allocationSize = 1)
-    private long customerAddressId;
+    private long addressId;
     private String address;
 
-    @ManyToMany(mappedBy = "customer_address")
+    @ManyToMany(mappedBy = "addresses")
+    @JsonIgnoreProperties("addresses")
     private List<Customer> customers;
 
     public CustomerAddress(String address, List<Customer> customers) {

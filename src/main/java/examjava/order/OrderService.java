@@ -25,15 +25,15 @@ public class OrderService {
 
     }
 
-    public List<Order> getOrders() {
+    public List<CustomerOrder> getOrders() {
         return orderRepo.findAll();
     }
 
-    public Order getOrderById(long id){
+    public CustomerOrder getOrderById(long id){
         return orderRepo.findById(id).orElse(null);
     }
 
-    public Order saveOrder(OrderDto orderDto)
+    public CustomerOrder saveOrder(OrderDto orderDto)
     {
         Customer customer = customerService.getCustomerById(orderDto.getCustomerId());
         List<Product> products = new ArrayList<>();
@@ -44,14 +44,14 @@ public class OrderService {
         for (Product product:products){
             totalPrice+= product.getPrice();
         }
-        Order order = new Order(
+        CustomerOrder customerOrder = new CustomerOrder(
                 orderDto.getShippingCharge(),
                 totalPrice,
                 OrderStatus.NOT_SHIPPED,
                 customer,
                 products
         );
-        return orderRepo.save(order);
+        return orderRepo.save(customerOrder);
     }
 
     public void deleteOrderById(long id){
