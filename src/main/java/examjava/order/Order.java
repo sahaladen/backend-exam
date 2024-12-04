@@ -38,4 +38,11 @@ public class Order {
     private List<Product> products;
 
 
+    public Order(int shippingCharge, int totalPrice, OrderStatus status, Customer customer, List<Product> products) {
+        this.shippingCharge = shippingCharge;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.customer = customer;
+        this.products = products;
+    }
 }

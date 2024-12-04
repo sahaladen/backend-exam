@@ -22,7 +22,16 @@ public class ProductService {
         return productRepo.findById(id).orElse(null);
     }
 
-    public Product saveProduct(Product product){
+    public Product saveProduct(ProductDto productDto){
+        Product product = new Product(
+          productDto.getProductName(),
+          productDto.getDescription(),
+          productDto.getPrice(),
+          ProductStatus.IN_STOCK,
+          productDto.getStock()
+
+
+        );
         return productRepo.save(product);
     }
 
