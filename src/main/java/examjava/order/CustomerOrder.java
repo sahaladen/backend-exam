@@ -2,6 +2,7 @@ package examjava.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import examjava.customer.Customer;
+import examjava.customerAddress.CustomerAddress;
 import examjava.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,12 +38,19 @@ public class CustomerOrder {
     @JsonIgnoreProperties("orders")
     private List<Product> products;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    @JsonIgnoreProperties({"customers"})
+    private CustomerAddress address;
 
-    public CustomerOrder(int shippingCharge, int totalPrice, OrderStatus status, Customer customer, List<Product> products) {
+
+    public CustomerOrder(int shippingCharge, int totalPrice, OrderStatus status, Customer customer, List<Product> products, CustomerAddress address) {
         this.shippingCharge = shippingCharge;
         this.totalPrice = totalPrice;
         this.shippingStatus = status;
         this.customer = customer;
         this.products = products;
+        this.address = address;
+
     }
 }

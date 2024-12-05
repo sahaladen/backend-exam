@@ -2,6 +2,8 @@ package examjava.order;
 
 import examjava.customer.Customer;
 import examjava.customer.CustomerService;
+import examjava.customerAddress.CustomerAddress;
+import examjava.customerAddress.CustomerAddressService;
 import examjava.product.Product;
 import examjava.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,15 @@ import java.util.List;
 public class OrderService {
     private final OrderRepo orderRepo;
     private final CustomerService customerService;
+    private final CustomerAddressService customerAddressService;
     private final ProductService productService;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, CustomerService customerService, ProductService productService) {
+    public OrderService(OrderRepo orderRepo, CustomerService customerService, CustomerAddressService customerAddressService, ProductService productService) {
 
         this.orderRepo = orderRepo;
         this.customerService = customerService;
+        this.customerAddressService = customerAddressService;
         this.productService = productService;
 
     }
@@ -36,6 +40,7 @@ public class OrderService {
     public CustomerOrder saveOrder(OrderDto orderDto)
     {
         Customer customer = customerService.getCustomerById(orderDto.getCustomerId());
+        CustomerAddress address = customerAddressService.getCustomerAddressById(orderDto.getAddressId());
         List<Product> products = new ArrayList<>();
         for (Long productId: orderDto.getProductIds()) {
             products.add(productService.getProductById(productId));
@@ -49,7 +54,8 @@ public class OrderService {
                 totalPrice,
                 OrderStatus.NOT_SHIPPED,
                 customer,
-                products
+                products,
+                address
         );
         return orderRepo.save(customerOrder);
     }

@@ -13,4 +13,5 @@ public class OrderDto {
     private int shippingCharge;
     private long customerId;
     private List<Long> productIds;
+    private long addressId;
 }

@@ -3,7 +3,8 @@ create table if not exists customer_order(
     shipping_charge int,
     total_price int,
     shipping_status varchar(12),
-    customer_id bigint
+    customer_id bigint,
+    address_id bigint
 );
 
 create sequence customer_order_sql;
