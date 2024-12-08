@@ -25,7 +25,9 @@ public class CustomerAddress {
     @JsonIgnoreProperties("addresses")
     private List<Customer> customers;
 
-    public CustomerAddress(String address, List<Customer> customers) {
+    public CustomerAddress(String address) {
         this.address = address;
     }
+
+
 }

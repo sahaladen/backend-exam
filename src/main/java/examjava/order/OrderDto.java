@@ -14,4 +14,11 @@ public class OrderDto {
     private long customerId;
     private List<Long> productIds;
     private long addressId;
+
+    public OrderDto(int shippingCharge, long customerId, List<Long> productIds, long addressId) {
+        this.shippingCharge = shippingCharge;
+        this.customerId = customerId;
+        this.productIds = productIds;
+        this.addressId = addressId;
+    }
 }

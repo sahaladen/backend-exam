@@ -38,5 +38,9 @@ public class OrderController {
         orderService.deleteOrderById(id);
         return new ResponseEntity<>("Your shit is gone", HttpStatus.OK);
     }
+    @GetMapping("/ship/{id}")
+    public ResponseEntity<CustomerOrder> shipOrder(@PathVariable long id) {
+        return new ResponseEntity<>(orderService.shipOrder(id), HttpStatus.OK);
+    }
 
 }

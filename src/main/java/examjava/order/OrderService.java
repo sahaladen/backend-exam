@@ -6,6 +6,7 @@ import examjava.customerAddress.CustomerAddress;
 import examjava.customerAddress.CustomerAddressService;
 import examjava.product.Product;
 import examjava.product.ProductService;
+import examjava.product.ProductStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,16 @@ public class OrderService {
         CustomerAddress address = customerAddressService.getCustomerAddressById(orderDto.getAddressId());
         List<Product> products = new ArrayList<>();
         for (Long productId: orderDto.getProductIds()) {
-            products.add(productService.getProductById(productId));
+
+            if (productService.getProductById(productId).getStatus().equals(ProductStatus.IN_STOCK)){
+                Product product = productService.getProductById(productId);
+                product.setStock(product.getStock()-1);
+                if(product.getStock()==0){
+                    product.setStatus(ProductStatus.OUT_STOCK);
+                }
+                products.add(product);
+            }
+
         }
         int totalPrice = 0;
         for (Product product:products){
@@ -62,6 +72,12 @@ public class OrderService {
 
     public void deleteOrderById(long id){
         orderRepo.deleteById(id);
+    }
+
+    public CustomerOrder shipOrder(Long id){
+        CustomerOrder customerOrder = orderRepo.findById(id).orElse(null);
+        customerOrder.setShippingStatus(OrderStatus.SHIPPED);
+        return orderRepo.save(customerOrder);
     }
 
 }

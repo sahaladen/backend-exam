@@ -1,11 +1,13 @@
 package examjava;
 
+import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
 import examjava.customer.Customer;
 import examjava.customer.CustomerDto;
 import examjava.customer.CustomerService;
 import examjava.customerAddress.CustomerAddress;
 import examjava.customerAddress.CustomerAddressService;
+import examjava.order.OrderDto;
 import examjava.order.OrderService;
 import examjava.product.Product;
 import examjava.product.ProductDto;
@@ -13,13 +15,14 @@ import examjava.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Component
-public class InitData implements CommandLineRunner {
+@Service
+public class InitData  {
     private final CustomerService customerService;
     private final CustomerAddressService customerAddressService;
     private final OrderService orderService;
@@ -34,43 +37,63 @@ public class InitData implements CommandLineRunner {
         this.productService = productService;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    public void createData () {
         Random random = new Random();
 
 
         //creating customer address
-        List<CustomerAddress> customerAddresses = new ArrayList<>();
         for(int i = 0; i < 20; i++){
-            customerAddresses.add(
-                    customerAddressService.saveCustomerAddress(
-                            new CustomerAddress(
-                                    faker.address().fullAddress(),customerService.getCustomers()
-                            )
-                    )
+            customerAddressService.saveCustomerAddress(
+                new CustomerAddress(
+                        faker.address().fullAddress()
+                )
             );
         }
 
         //creating product
         List<Product> products = new ArrayList<>();
         for(int i = 0; i < 20; i++){
-            products.add(productService.saveProduct(new ProductDto()));
+            products.add(productService.saveProduct(new ProductDto(
+                    faker.food().fruit(),
+                    faker.lorem().characters(),
+                    random.nextInt(20,100),
+                    random.nextInt(100,1000)
+            )));
         }
 
 
 
 
         // Creating customers
-        List<Customer> customers = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            CustomerDto customerDto = new CustomerDto();
-            customerDto.setFirstName(faker.name().firstName());
-            customerDto.setLastName(faker.name().lastName());
-            customerDto.setPhoneNumber(faker.phoneNumber().phoneNumber());
-            customerDto.setEmail(faker.internet().emailAddress());
-            customerDto.setAddressIds(new ArrayList<>());
+            List<Long> addresses = new ArrayList<>();
+            for(int l =0; l< random.nextInt(1,2);l++){
+                addresses.add(random.nextLong(1,20));
+            }
 
-            customers.add(customerService.saveCustomer(customerDto));
+            customerService.saveCustomer(new CustomerDto(
+                    faker.name().firstName(),
+                    faker.name().lastName(),
+                    faker.phoneNumber().cellPhone(),
+                    faker.internet().emailAddress(),
+                    addresses));
         }
+
+        //creating orders
+        for (int i = 0; i < 20; i++) {
+            List<Long> orderproducts = new ArrayList<>();
+            for (int j = 0; j < random.nextInt(1,20); j++) {
+                orderproducts.add(random.nextLong(1, 20));
+            }
+            long personId = random.nextLong(1,20);
+            orderService.saveOrder(new OrderDto(
+                    random.nextInt(100,500),
+                    personId,
+                    orderproducts,
+                    customerService.getCustomerById(personId).getAddresses().get(0).getAddressId()
+                    )
+            );
+        }
+
     }
 }
