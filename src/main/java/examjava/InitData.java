@@ -1,4 +1,4 @@
-package examjava;
+/*package examjava;
 
 import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
@@ -97,3 +97,4 @@ public class InitData  {
 
     }
 }
+*/

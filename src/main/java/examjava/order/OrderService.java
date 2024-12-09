@@ -4,6 +4,8 @@ import examjava.customer.Customer;
 import examjava.customer.CustomerService;
 import examjava.customerAddress.CustomerAddress;
 import examjava.customerAddress.CustomerAddressService;
+import examjava.error.CustomerNotFoundException;
+import examjava.error.OrderNotFoundException;
 import examjava.product.Product;
 import examjava.product.ProductService;
 import examjava.product.ProductStatus;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderService {
@@ -35,7 +38,13 @@ public class OrderService {
     }
 
     public CustomerOrder getOrderById(long id){
-        return orderRepo.findById(id).orElse(null);
+        CustomerOrder customerOrder;
+        try {
+            customerOrder= orderRepo.findById(id).orElseThrow();
+        }catch (NoSuchElementException e){
+            throw new OrderNotFoundException("Order"  +id + "not found");
+        }
+        return customerOrder;
     }
 
     public CustomerOrder saveOrder(OrderDto orderDto)
@@ -75,9 +84,16 @@ public class OrderService {
     }
 
     public CustomerOrder shipOrder(Long id){
-        CustomerOrder customerOrder = orderRepo.findById(id).orElse(null);
-        customerOrder.setShippingStatus(OrderStatus.SHIPPED);
-        return orderRepo.save(customerOrder);
+        CustomerOrder customerOrder;
+        try {
+            customerOrder = orderRepo.findById(id).orElse(null);
+            customerOrder.setShippingStatus(OrderStatus.SHIPPED);
+            orderRepo.save(customerOrder);
+        } catch (NoSuchElementException e) {
+            throw new OrderNotFoundException("Order" + id + "not found");
+
+        }
+        return customerOrder;
     }
 
 }

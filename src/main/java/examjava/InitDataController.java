@@ -1,4 +1,4 @@
-package examjava;
+/*package examjava;
 
 import examjava.product.Product;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -32,3 +32,4 @@ public class InitDataController {
 
 
 }
+*/

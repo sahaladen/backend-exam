@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "no customer address found")
 public class CustomerAddressNotFoundException extends RuntimeException{
 
-    public CustomerAddressNotFoundException(int message) {
+    public CustomerAddressNotFoundException(String message) {
         super(String.valueOf(message));
     }
 }
